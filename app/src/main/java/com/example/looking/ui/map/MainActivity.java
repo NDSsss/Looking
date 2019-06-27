@@ -115,21 +115,35 @@ public class MainActivity extends AppCompatActivity {
         rect.setFillColor(getResources().getColor(R.color.colorPrimary));
         rect.setAnimatedImage(animatedImage, 32.0f, PatternRepeatMode.REPEAT);
 
-        for (int j = -20; j < 20; j++) {
+        double b = (OBJECT_SIZE * Math.sin(45))/Math.sin(90);
+        double c = (OBJECT_SIZE * Math.sin(45))/Math.sin(90);
+        double maxWIth0 = OBJECT_SIZE + b*2;
+        double maxHeight0 = c*2;
+        double maxWIth1 = OBJECT_SIZE + b*2;
+        double maxHeight1 = c*2;
+
+        for (int j = -10; j < 10; j++) {
             for (int i = -20; i < 20; i++) {
                 ArrayList<Point> trianglePoints = new ArrayList<>();
                 trianglePoints.add(new Point(
-                        TRIANGLE_CENTER.getLatitude() + OBJECT_SIZE * i,
-                        TRIANGLE_CENTER.getLongitude() + OBJECT_SIZE * j));
+                        TRIANGLE_CENTER.getLatitude()+ maxHeight * j ,
+                        TRIANGLE_CENTER.getLongitude() + maxWIth * i));
                 trianglePoints.add(new Point(
-                        TRIANGLE_CENTER.getLatitude() + OBJECT_SIZE + OBJECT_SIZE * i,
-                        TRIANGLE_CENTER.getLongitude() + OBJECT_SIZE * j));
+                        TRIANGLE_CENTER.getLatitude() + maxHeight * j - c ,
+                        TRIANGLE_CENTER.getLongitude()+ maxWIth * i + b));
                 trianglePoints.add(new Point(
-                        TRIANGLE_CENTER.getLatitude() + OBJECT_SIZE + OBJECT_SIZE * i,
-                        TRIANGLE_CENTER.getLongitude() + OBJECT_SIZE + OBJECT_SIZE * j));
+                        TRIANGLE_CENTER.getLatitude() + maxHeight * j - c,
+                        TRIANGLE_CENTER.getLongitude() + maxWIth * i + b + OBJECT_SIZE));
                 trianglePoints.add(new Point(
-                        TRIANGLE_CENTER.getLatitude() + OBJECT_SIZE * i,
-                        TRIANGLE_CENTER.getLongitude() + OBJECT_SIZE + OBJECT_SIZE * j));
+                        TRIANGLE_CENTER.getLatitude() + maxHeight * j,
+                        TRIANGLE_CENTER.getLongitude() + maxWIth * i + b + OBJECT_SIZE + b));
+                trianglePoints.add(new Point(
+                        TRIANGLE_CENTER.getLatitude() + maxHeight * j + c,
+                        TRIANGLE_CENTER.getLongitude() + maxWIth * i+ b + OBJECT_SIZE));
+                trianglePoints.add(new Point(
+                        TRIANGLE_CENTER.getLatitude() + maxHeight * j + c,
+                        TRIANGLE_CENTER.getLongitude() + maxWIth * i + b));
+
                 PolygonMapObject triangle = mapObjects.addPolygon(
                         new Polygon(new LinearRing(trianglePoints), new ArrayList<LinearRing>()));
                 switch (i * j % 10) {
